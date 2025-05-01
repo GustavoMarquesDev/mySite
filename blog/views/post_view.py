@@ -1,13 +1,14 @@
-from django.views import generic
-
+from django.views.generic import ListView, DetailView
 from blog.models import Post
 
 
-class PostView(generic.ListView):
+class PostView(ListView):
+    model = Post
     queryset = Post.objects.filter(status=1).order_by("-created_on")
     template_name = "index.html"
+    context_object_name = "post_list"
 
 
-class PostDetail(generic.DetailView):
+class PostDetail(DetailView):
     model = Post
     template_name = "post_detail.html"
